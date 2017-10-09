@@ -1,0 +1,44 @@
+p#title {
+	font-family: "Raleway";
+	line-height: 2;
+	font-size: 30px;
+	font-weight: bold;
+	color: coral;
+}
+
+#top-header {
+	background-color: #ddd;
+	padding-top: 20px;
+	border-bottom: solid lightgray 4px;
+}
+
+body {
+	background-image: url("ballcourt.jpg");
+}
+
+.panel-default {
+	margin: 20px;
+	height: 100%;
+}
+
+.row {
+	margin: 0px 0px 30px 0px;
+}
+
+.leftcol {
+	padding: 30px 30px 0px 30px;
+}
+
+p {
+	font-family: "Open Sans";
+	font-color: solid gray;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+p.bigger{
+	font-family: "Open Sans";
+	font-color: solid gray;
+	font-size: 20px;
+	font-weight: bold;
+}

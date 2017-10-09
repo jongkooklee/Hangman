@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman Game</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+</head>
+
+<header>
+	<div id="top-header" class="col-md-12 text-center">
+			<p id=title>Basketball Hangman</p>
+
+</header>
+
+<body>
+		<div class="guessphoto col-md-5">
+		<div class="leftcol panel panel-default">
+  			<div class="row panel-body">
+          <img class="img-responsive" src="players.jpg" alt="NBAPLAYERS">
+        </div>
+		</div>
+		</div>
+
+		<div class="gameplay col-md-7 col-centered">
+		<div class="panel panel-default">
+  			<div class="panel-body">
+  				<div class="row text-center">
+  					<h3> Press any key to get started!</h3>
+  				</div>
+  				<div class="row text-center">
+  					<div class="col-md-2 col-md-offset-4"><p>WINS:</p></div>
+  					<div class="col-md-2 wincount"></div>
+  				</div>
+  				<div class="row text-center">
+  					<p>Current word:</p>
+  					<div id="currentword"></div>
+  				</div>
+  				<div class="row text-center"><p>Number of guesses remaining:</p></div>
+  				<div class="remainingguesses">
+  				</div>
+  				<div class="row text-center"><p>Letters already guessed:</p></div>
+  				<div class="row alreadyguessed text-center">
+  				</div>
+  			</div>
+		</div>
+		</div>
+
+<!-- JAVASCRIPT -->
+<script>
+
+    $(document).ready(function() {
+
+    var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+    var playerList = ["Lebron", "Kobe", "Dwyane", "Stephen", "Russell", "James"];
+    var randomPlayer, wordLength, underscores, guessed;
+    start_game();
+
+    function start_game() {
+       guessed = new Set([]); // creating Set for letters so it doesn't repeat.
+    // for (var i = 0; i < playerList.length; i++) {
+        randomPlayer = playerList[Math.floor(Math.random() * playerList.length)];
+        wordLength = randomPlayer.length;
+        console.log(randomPlayer);
+        console.log(randomPlayer.includes('o'));
+        underscores = "";
+        for (var i = 0; i < wordLength; i++) {
+            underscores = underscores + "_ "; // underscores += "_ ";
+        }
+
+        $("#currentword").html("<p class='bigger'>" + underscores + "</p>");
+    }
+
+      function textsizer(e){
+          var unicode= e.keyCode; //TODO: limit range of letters a-z A-Z
+          var actualkey=String.fromCharCode(unicode);
+          console.log(actualkey);
+
+          if (randomPlayer.toLowerCase().includes(actualkey.toLowerCase())) {
+            for (var i = 0; i < randomPlayer.length; i++) {
+              if (randomPlayer[i].toLowerCase() == actualkey.toLowerCase()) {
+                // replace the underscore at this index
+                underscores = setCharAt(underscores, 2*i, randomPlayer[i]);
+                console.log(underscores);
+              }// TODO: check if there are any underscores. if not, then reset game by displaying new randomPlayer.
+            }
+            $("#currentword").html("<p class='bigger'>" + underscores + "</p>");
+          }
+          else {
+            guessed.add(actualkey);
+            var guessedStrings = "";
+            guessed.forEach(function(value) {
+              guessedStrings += value + " ";
+            });
+            $(".alreadyguessed").text(guessedStrings); //TODO: If wrong, subtract from guesses remaining
+          }
+      }
+      document.onkeypress=textsizer; // onkeypress event for each letter that calls the function.
+
+      function setCharAt(str,index,chr) {
+          if(index > str.length-1) return str;
+          return str.substr(0,index) + chr + str.substr(index+1);
+      }
+})
+
+
+
+
+  //   var buttons = function () {
+  //     var myButtons = document.getElementById('buttons');
+  //     var letters = document.createElement('ul'); //CREATE ELEMENTS FOR BUTTONS
+
+  //   for (var i = 0; i < alphabet.length; i++) {
+  //     list = document.createElement('li');
+  //     list.id = 'letter';
+  //     list.innerHTML = alphabet[i];
+  //     check();
+  //     myButtons.appendChild(letters);
+  //     letters.appendChild(list);
+  //   }
+  // }
+ //  	var guessedLetters = [];
+
+ //  	function chooseWord() {
+ //    return playerList[Math.floor(Math.random() * playerList.length)]
+	// }
+
+	// for(i=0;i<playerList.length;i++){
+ //    	result +="_";
+	// }	
+	
+ //  	document.onkeyup = function(event) {
+
+ //  			var key_press = String.fromCharCode(event.keyCode);
+ //  			console.log(key_press)
+ //  			document.getElementById(".guessed-letters").innerHTML = key_press;
+ //  }
+
+</script>
+</body>
+
+</html>
